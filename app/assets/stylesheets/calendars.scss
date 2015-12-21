@@ -1,0 +1,28 @@
+// Place all the styles related to the Calendars controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.calendar-heading{
+	> * {
+		margin-right:10px;
+	}
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width:100%;
+	text-align: center;
+	h3{
+		display: inline;	
+	}
+}
+
+td{
+	width: 14.28%;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in;
+	&:hover{
+		background-color: lightblue;
+	} 
+	vertical-align: top;
+}
+

@@ -1,0 +1,42 @@
+<div class='calendar-heading'>
+	<%= link_to "<", calendar_path(@prev_month, @prev_month == 12 ? @current_date.year-1 : @current_date.year), class: 'btn-floating waves-effect waves-light' %>
+	<h3><%= Date::MONTHNAMES[@current_date.month].upcase %></h3>
+	<%= link_to ">", calendar_path(@next_month, @next_month == 1 ? @current_date.year+1 : @current_date.year), class: 'btn-floating waves-effect waves-light' %>
+	<%= link_to "<", calendar_path(@current_date.month, @current_date.year-1), class: 'btn-floating waves-effect waves-light red' %>
+	<h3><%= @current_date.year %></h3> 
+	<%= link_to ">", calendar_path(@current_date.month, @current_date.year+1), class: 'btn-floating waves-effect waves-light red' %>
+</div>
+<div>
+	<table>
+		<thead>
+			<tr>
+				<% Date::DAYNAMES.each do |day| %>
+					<th><%= day %></th>
+				<% end %>
+			</tr>
+		</thead>
+		<tbody>
+			<% @num_weeks_in_month.times do %>
+				<tr>
+					<% 7.times do %>
+						<td data-day-url="<%= show_day_path(@current_date.year, @current_date.month, @day_index) %>" >
+							<% if @day_index <= @num_days_in_month &&  @calendar_cell_index >= @first_weekday_of_month %>
+								<p><strong><%= @day_index %></strong></p>
+								<% @day_index+=1 %>
+							<% end %>
+							<% @calendar_cell_index += 1 %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<% content_for(:js) do %>
+	$('td').on('click', function(){
+		var url = $(this).data('day-url');
+		window.location.replace(url);
+	});	
+<% end %>
+
