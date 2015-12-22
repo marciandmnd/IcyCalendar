@@ -1,10 +1,10 @@
 <div class='calendar-heading'>
-	<%= link_to "<", calendar_path(@prev_month, @prev_month == 12 ? @current_date.year-1 : @current_date.year), class: 'btn-floating waves-effect waves-light' %>
+	<%= link_to "<", calendar_path(@prev_month == 12 ? @current_date.year-1 : @current_date.year, @prev_month), class: 'btn-floating waves-effect waves-light' %>
 	<h3><%= Date::MONTHNAMES[@current_date.month].upcase %></h3>
-	<%= link_to ">", calendar_path(@next_month, @next_month == 1 ? @current_date.year+1 : @current_date.year), class: 'btn-floating waves-effect waves-light' %>
-	<%= link_to "<", calendar_path(@current_date.month, @current_date.year-1), class: 'btn-floating waves-effect waves-light red' %>
+	<%= link_to ">", calendar_path(@next_month == 1 ? @current_date.year+1 : @current_date.year, @next_month), class: 'btn-floating waves-effect waves-light' %>
+	<%= link_to "<", calendar_path( @current_date.year-1, @current_date.month), class: 'btn-floating waves-effect waves-light red' %>
 	<h3><%= @current_date.year %></h3> 
-	<%= link_to ">", calendar_path(@current_date.month, @current_date.year+1), class: 'btn-floating waves-effect waves-light red' %>
+	<%= link_to ">", calendar_path(@current_date.year+1, @current_date.month), class: 'btn-floating waves-effect waves-light red' %>
 </div>
 <div>
 	<table>
@@ -34,9 +34,9 @@
 </div>
 
 <% content_for(:js) do %>
-	$('td').on('click', function(){
+<!-- 	$('td').on('click', function(){
 		var url = $(this).data('day-url');
 		window.location.replace(url);
-	});	
+	});	 -->
 <% end %>
 

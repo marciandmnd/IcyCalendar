@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   resources :users
   
   get '/demo' => 'calendars#demo', as: :demo
-  get 'calendars/:year/:month' => 'calendars#index', as: :calendar
-  get 'calendars/:year/:month/:day' => 'calendars#show_day', as: :show_day
+  get '/calendars/:year/:month/:day' => 'calendars#show_day', as: :show_day
+  
+  get '/calendars/:year/:month' => 'calendars#index', as: :calendar
   root 'pages#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
