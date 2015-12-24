@@ -1,10 +1,10 @@
 <div class='calendar-heading'>
-	<%= link_to "<", calendar_path(@prev_month == 12 ? @current_date.year-1 : @current_date.year, @prev_month), class: 'btn-floating waves-effect waves-light' %>
-	<h3><%= Date::MONTHNAMES[@current_date.month].upcase %></h3>
-	<%= link_to ">", calendar_path(@next_month == 1 ? @current_date.year+1 : @current_date.year, @next_month), class: 'btn-floating waves-effect waves-light' %>
-	<%= link_to "<", calendar_path( @current_date.year-1, @current_date.month), class: 'btn-floating waves-effect waves-light red' %>
-	<h3><%= @current_date.year %></h3> 
-	<%= link_to ">", calendar_path(@current_date.year+1, @current_date.month), class: 'btn-floating waves-effect waves-light red' %>
+	<%= link_to "<", calendar_path(@prev_month == 12 ? @current_month.year-1 : @current_month.year, @prev_month), class: 'btn-floating waves-effect waves-light' %>
+	<h3><%= Date::MONTHNAMES[@current_month.month].upcase %></h3>
+	<%= link_to ">", calendar_path(@next_month == 1 ? @current_month.year+1 : @current_month.year, @next_month), class: 'btn-floating waves-effect waves-light' %>
+	<%= link_to "<", calendar_path( @current_month.year-1, @current_month.month), class: 'btn-floating waves-effect waves-light red' %>
+	<h3><%= @current_month.year %></h3> 
+	<%= link_to ">", calendar_path(@current_month.year+1, @current_month.month), class: 'btn-floating waves-effect waves-light red' %>
 </div>
 <div>
 	<table>
@@ -16,15 +16,32 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% @num_weeks_in_month.times do %>
+			<% while @day_index <= @num_days_in_month do %>
 				<tr>
 					<% 7.times do %>
-						<td data-day-url="<%= show_day_path(@current_date.year, @current_date.month, @day_index) %>" >
-							<% if @day_index <= @num_days_in_month &&  @calendar_cell_index >= @first_weekday_of_month %>
-								<p><strong><%= @day_index %></strong></p>
-								<% @day_index+=1 %>
-							<% end %>
-							<% @calendar_cell_index += 1 %>
+						<td class='<%= (@day_index == 1 && @calendar_cell_index < @first_weekday_of_month) || @day_index > @num_days_in_month ? 'td-other-month' : nil %>
+						 	<%= @today == @day_index ? "td-current-day": nil %>' 
+					 	>
+							<div class='calendar-cell-wrapper' style='position:relative;'>
+								<% if @day_index <= @num_days_in_month &&  @calendar_cell_index >= @first_weekday_of_month %>
+									<div class='date-day-number' style='display:inline-block;'>
+										<p>
+											<strong>
+												<%= link_to "#{@day_index}", show_day_path(@current_month.year, @current_month.month, @day_index) %>
+											</strong>
+										</p>
+									</div>
+									<% if @appointments_indices[@day_index-1] == 1 %>
+										<div class='appointment-icon-wrapper' style='display:inline-block;margin-left:35%;'>
+										<%= link_to show_day_path(@current_month.year, @current_month.month, @day_index) do %>
+											<p>1<i class="material-icons">schedule</i></p>
+											<% end %>
+										</div>
+									<%end%>
+									<% @day_index+=1 %>
+								<% end %>
+								<% @calendar_cell_index += 1 %>
+							</div><!--end calendar cell wrapper -->
 						</td>
 					<% end %>
 				</tr>
@@ -33,10 +50,4 @@
 	</table>
 </div>
 
-<% content_for(:js) do %>
-<!-- 	$('td').on('click', function(){
-		var url = $(this).data('day-url');
-		window.location.replace(url);
-	});	 -->
-<% end %>
 

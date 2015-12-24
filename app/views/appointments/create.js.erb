@@ -1,0 +1,10 @@
+$('#modal1').closeModal();
+if($('#appointment-table').css("display") == "none"){
+	$('#appointment-list-message').css("display", "none");
+	$('#appointment-table').css("display", "table")
+}
+$('.tbl-appointments').append('<tr data-appointment-id="<%= @appointment.id %>" >' +
+				'<td><%= @appointment.date_time.strftime("%H:%M") %></td>' +
+				'<td><%= @appointment.description %></td>' +
+				'<td><%= link_to "remove", appointment_path(@appointment), method: :delete, remote: true %></td>' +
+			'</tr>');

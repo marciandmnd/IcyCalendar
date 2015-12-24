@@ -18,11 +18,23 @@
 
 td{
 	width: 14.28%;
-	cursor: pointer;
+	// cursor: pointer;
 	transition: background-color 0.2s ease-in;
+	// border-bottom: 1px solid teal!important;
+	// border-left: 1px solid teal!important;
 	&:hover{
 		background-color: lightblue;
 	} 
 	vertical-align: top;
 }
 
+.td-current-day{
+	background-color: #F9BF3B;
+	&:hover{
+		background-color:orange!important;
+	}
+}
+
+.td-other-month{
+	background-color: #ECECEC;
+}

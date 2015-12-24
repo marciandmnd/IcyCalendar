@@ -1,0 +1,14 @@
+<%= simple_form_for @appointment, remote: true do |f| %>
+	<div class="modal-content">
+		<h4>New Appointment</h4>
+		<div class="row">
+			<div class="appointment-form col s6">
+				<%= f.time_select :date_time, {default: @date}, {style: 'width:75px;'} %>
+				<%= f.input :description %>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<%= f.button :submit, id: 'btn-submit-new-appointment' %>
+	</div>
+<% end %>

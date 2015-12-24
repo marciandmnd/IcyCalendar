@@ -1,1 +1,47 @@
-<h1>show day</h1>
+<div class='show-day'>
+	
+
+	<div style="display:flex; align-items: center;">
+		<%= link_to url_for(:back), style: "margin-right: 25px;" do %>
+			<%= icon('calendar', class: "fa-3x") %>
+		<% end %>
+		<h5>Appointments for <%= @date.strftime("%A, %B #{@date.day.ordinalize} %Y") %></h5>
+		<a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" alt='Create new appointment' href="#modal1" style='margin-left: 25px;'>
+			<i class="material-icons">add</i>
+		</a>
+	</div>
+	<hr/>
+	<% if @appointments.empty? %>
+		<p id='appointment-list-message'>There are no appointments for this date</p>
+	<% else %>
+		<p id='appointment-list-message' style='display:none;'>There are no appointments for this date</p>
+	<% end %>
+	<table id='appointment-table' style='<%= @appointments.empty? ? "display:none;" : "display:table;" %>'>
+		<thead>
+			<tr>
+				<th>time</th>
+				<th>description</th>
+			</tr>
+		</thead>
+		<tbody class='tbl-appointments'>
+			<% @appointments.each do |appointment| %>
+			<tr data-appointment-id="<%= appointment.id %>">
+				<td><%= appointment.date_time.strftime("%H:%M") %></td>
+				<td><%= appointment.description %></td>
+				<td><%= link_to "remove", appointment_path(appointment), method: :delete, remote: true %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal">
+		<%= render 'appointments/new_appointment_form' %>
+	</div><!-- end modal -->
+</div>
+
+<% content_for(:js) do %>
+	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+	$('.modal-trigger').leanModal();
+<% end %>
