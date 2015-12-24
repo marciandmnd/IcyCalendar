@@ -6,9 +6,9 @@
 			<%= icon('calendar', class: "fa-3x") %>
 		<% end %>
 		<h5>Appointments for <%= @date.strftime("%A, %B #{@date.day.ordinalize} %Y") %></h5>
-		<a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" alt='Create new appointment' href="#modal1" style='margin-left: 25px;'>
-			<i class="material-icons">add</i>
-		</a>
+		<%= link_to new_appointment_path, class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;",remote: true do %>
+				<i class="material-icons">add</i>
+		<% end %>
 	</div>
 	<hr/>
 	<% if @appointments.empty? %>
@@ -19,8 +19,9 @@
 	<table id='appointment-table' style='<%= @appointments.empty? ? "display:none;" : "display:table;" %>'>
 		<thead>
 			<tr>
-				<th>time</th>
-				<th>description</th>
+				<th>TIME</th>
+				<th>DESCRIPTION</th>
+				<th>ACTIONS</th>
 			</tr>
 		</thead>
 		<tbody class='tbl-appointments'>
@@ -28,17 +29,19 @@
 			<tr data-appointment-id="<%= appointment.id %>">
 				<td><%= appointment.date_time.strftime("%H:%M") %></td>
 				<td><%= appointment.description %></td>
-				<td><%= link_to "remove", appointment_path(appointment), method: :delete, remote: true %></td>
+				<td>
+					<%= link_to edit_appointment_path(appointment), remote: true do %>
+						<%= icon('pencil', class: "fa-2x", style: "color:orange") %>
+					<% end %>
+					<%= link_to appointment_path(appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do %>
+						<%= icon('times', class: "fa-2x", style: "color:red") %>
+					<% end %>
+				</td>
 			</tr>
 			<% end %>
 		</tbody>
 	</table>
-
-
-	<!-- Modal Structure -->
-	<div id="modal1" class="modal">
-		<%= render 'appointments/new_appointment_form' %>
-	</div><!-- end modal -->
+	<div id="modal-appointment-form" class='modal' style='width:500px'></div>
 </div>
 
 <% content_for(:js) do %>

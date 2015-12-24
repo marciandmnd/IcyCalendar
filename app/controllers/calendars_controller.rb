@@ -22,9 +22,10 @@ class CalendarsController < ApplicationController
 		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
 
 		@appointments = Appointment.where('extract(year from date_time) = ? AND extract(month from date_time) = ? AND user_id = ?', @year, @month,session[:guest_user_id])
-		@appointments_indices = Array.new(@num_days_in_month)
+		@appointments_indices = Hash[(0...@num_days_in_month).map { |num| [num,  0] }]
+
 		@appointments.each do |appointment|
-			 @appointments_indices[appointment.date_time.day-1] = 1
+			@appointments_indices[appointment.date_time.day-1] += 1
 		end
 
 	end

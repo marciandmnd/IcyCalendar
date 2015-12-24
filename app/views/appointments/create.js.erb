@@ -1,10 +1,25 @@
-$('#modal1').closeModal();
+$('#modal-appointment-form').closeModal();
+// $('#appointment_description').val("");
+
+// $('#appointment_date_time_4i').val('00');
+// $('#appointment_date_time_5i').val('00');
+
 if($('#appointment-table').css("display") == "none"){
 	$('#appointment-list-message').css("display", "none");
 	$('#appointment-table').css("display", "table")
 }
-$('.tbl-appointments').append('<tr data-appointment-id="<%= @appointment.id %>" >' +
-				'<td><%= @appointment.date_time.strftime("%H:%M") %></td>' +
-				'<td><%= @appointment.description %></td>' +
-				'<td><%= link_to "remove", appointment_path(@appointment), method: :delete, remote: true %></td>' +
-			'</tr>');
+$('.tbl-appointments').append(
+	`<tr data-appointment-id='<%= @appointment.id %>' >
+		<td><%= @appointment.date_time.strftime("%H:%M") %></td>
+		<td><%= @appointment.description %></td>
+		<td>
+			<%= link_to edit_appointment_path(@appointment), remote: true do %>
+				<%= icon('pencil', class: "fa-2x", style: "color:orange") %>
+			<% end %>
+			<%= link_to appointment_path(@appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do %>
+				<%= icon('times', class: "fa-2x", style: "color:red") %>
+			<% end %>
+		</td>
+	</tr>`
+);
+				

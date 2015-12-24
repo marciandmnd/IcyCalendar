@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :appointments, only: [:new, :create, :destroy]
+  resources :appointments
 
   devise_for :users
   resources :users

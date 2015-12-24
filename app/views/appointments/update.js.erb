@@ -1,0 +1,13 @@
+$('#modal-appointment-form').closeModal();
+$("tr[data-appointment-id='" + <%= @appointment.id %> + "']").html(
+	`<td><%= @appointment.date_time.strftime("%H:%M") %></td>
+	<td><%= @appointment.description %></td>
+	<td>
+		<%= link_to edit_appointment_path(@appointment), remote: true do %>
+			<%= icon('pencil', class: "fa-2x", style: "color:orange") %>
+		<% end %>
+		<%= link_to appointment_path(@appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do %>
+			<%= icon('times', class: "fa-2x", style: "color:red") %>
+		<% end %>
+	</td>`
+);

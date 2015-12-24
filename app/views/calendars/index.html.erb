@@ -31,10 +31,10 @@
 											</strong>
 										</p>
 									</div>
-									<% if @appointments_indices[@day_index-1] == 1 %>
+									<% if @appointments_indices[@day_index-1] > 0%>
 										<div class='appointment-icon-wrapper' style='display:inline-block;margin-left:35%;'>
 										<%= link_to show_day_path(@current_month.year, @current_month.month, @day_index) do %>
-											<p>1<i class="material-icons">schedule</i></p>
+											<p><%= @appointments_indices[@day_index-1] %><i class="material-icons">schedule</i></p>
 											<% end %>
 										</div>
 									<%end%>

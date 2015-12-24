@@ -1,4 +1,12 @@
 class AppointmentsController < ApplicationController
+  
+  def new
+    @appointment = Appointment.new
+    respond_to do |format|
+        format.js
+      end
+  end
+
   def create
   	@appointment = Appointment.new(appointment_params)
   	@appointment.user_id = session[:guest_user_id]
@@ -10,6 +18,25 @@ class AppointmentsController < ApplicationController
 	  	end
   	end
   end
+
+  def edit
+    @appointment = Appointment.find(params[:id])
+    respond_to do |format|
+      if @appointment
+        format.js
+      end
+    end
+  end
+
+  def update
+    @appointment = Appointment.find(params[:id])
+    respond_to do |format|
+      if @appointment.update(appointment_params)
+        format.js
+      end
+    end
+  end
+
 
   def destroy
 
