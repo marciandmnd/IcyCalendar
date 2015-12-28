@@ -13,7 +13,7 @@ class CalendarsController < ApplicationController
 		@current_month = Time.new(@year,@month,1).to_date
 		@current_date = Time.new
 
-		@current_date.month == @month ? @today = @current_date.day : @today = nil
+		@current_date.month == @month && @current_date.year == @year ? @today = @current_date.day : nil
 
 		@calendar_cell_index = 0;
 		@day_index = 1;

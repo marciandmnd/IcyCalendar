@@ -1,13 +1,11 @@
 <div class='show-day'>
-	
-
 	<div style="display:flex; align-items: center;">
 		<%= link_to url_for(:back), style: "margin-right: 25px;" do %>
-			<%= icon('calendar', class: "fa-3x") %>
+			<%= icon('calendar', class: "fa-3x", title: "Back to calendar") %>
 		<% end %>
 		<h5>Appointments for <%= @date.strftime("%A, %B #{@date.day.ordinalize} %Y") %></h5>
 		<%= link_to new_appointment_path, class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;",remote: true do %>
-				<i class="material-icons">add</i>
+				<i class="material-icons" title="Create new appointment">add</i>
 		<% end %>
 	</div>
 	<hr/>
