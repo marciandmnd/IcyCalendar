@@ -4,7 +4,7 @@
 			<%= icon('calendar', class: "fa-3x", title: "Back to calendar") %>
 		<% end %>
 		<h5>Appointments for <%= @date.strftime("%A, %B #{@date.day.ordinalize} %Y") %></h5>
-		<%= link_to new_appointment_path, class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;",remote: true do %>
+		<%= link_to new_appointment_path(year: @date.year, month: @date.month, day: @date.day), class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;",remote: true do %>
 				<i class="material-icons" title="Create new appointment">add</i>
 		<% end %>
 	</div>
@@ -25,7 +25,7 @@
 		<tbody class='tbl-appointments'>
 			<% @appointments.each do |appointment| %>
 			<tr data-appointment-id="<%= appointment.id %>">
-				<td><%= appointment.date_time.strftime("%H:%M") %></td>
+				<td><%= appointment.time.strftime("%H:%M") %></td>
 				<td><%= appointment.description %></td>
 				<td>
 					<%= link_to edit_appointment_path(appointment), remote: true do %>

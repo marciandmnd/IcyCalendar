@@ -21,11 +21,11 @@ class CalendarsController < ApplicationController
 		@num_weeks_in_month = (@num_days_in_month.to_f / 7).ceil
 		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
 
-		@appointments = Appointment.where('extract(year from date_time) = ? AND extract(month from date_time) = ? AND user_id = ?', @year, @month,session[:guest_user_id])
+		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND user_id = ?', @year, @month,session[:guest_user_id])
 		@appointments_indices = Hash[(0...@num_days_in_month).map { |num| [num,  0] }]
 
 		@appointments.each do |appointment|
-			@appointments_indices[appointment.date_time.day-1] += 1
+			@appointments_indices[appointment.date.day-1] += 1
 		end
 
 	end
@@ -33,7 +33,7 @@ class CalendarsController < ApplicationController
 	def show_day
 		@day = params[:day]
 		@date = Time.new(@year,@month,@day)
-		@appointments = Appointment.where('extract(year from date_time) = ? AND extract(month from date_time) = ? AND extract(day from date_time) = ? AND user_id = ?', @year, @month, @day, session[:guest_user_id])
+		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, session[:guest_user_id])
 		@appointment = Appointment.new #for new appointment creation
 	end
 

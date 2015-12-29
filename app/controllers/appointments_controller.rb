@@ -2,6 +2,8 @@ class AppointmentsController < ApplicationController
   
   def new
     @appointment = Appointment.new
+    puts "!!!!!!!!!!!!"
+    @date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
     respond_to do |format|
         format.js
       end
@@ -51,6 +53,6 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-  	params.require(:appointment).permit(:description, :date_time)
+  	params.require(:appointment).permit(:description, :time, :date)
   end
 end

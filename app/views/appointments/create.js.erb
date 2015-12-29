@@ -10,7 +10,7 @@ if($('#appointment-table').css("display") == "none"){
 }
 $('.tbl-appointments').append(
 	`<tr data-appointment-id='<%= @appointment.id %>' >
-		<td><%= @appointment.date_time.strftime("%H:%M") %></td>
+		<td><%= @appointment.time.strftime("%H:%M") %></td>
 		<td><%= @appointment.description %></td>
 		<td>
 			<%= link_to edit_appointment_path(@appointment), remote: true do %>
