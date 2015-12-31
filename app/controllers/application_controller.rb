@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
 	# Prevent CSRF attacks by raising an exception.
 	# For APIs, you may want to use :null_session instead.
 	protect_from_forgery with: :exception
+
+	def after_sign_in_path_for(resource)
+	  calendar_path(Time.now.year, Time.now.month)
+	end
   
    # if user is logged in, return current_user, else return guest_user
 	def current_or_guest_user
@@ -34,6 +38,7 @@ class ApplicationController < ActionController::Base
 	# called (once) when the user logs in, insert any code your application needs
 	# to hand off from guest_user to current_user.
 	def logging_in
+		puts "!!!!!!!!!!!!!!!!!!!!!!!!!*******************"
 	# For example:
 	# guest_comments = guest_user.comments.all
 	# guest_comments.each do |comment|
@@ -43,7 +48,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def create_guest_user
-		u = User.create(:email => "guest_#{Time.now.to_i}#{rand(100)}@example.com")
+		u = User.create(:email => "guest_#{Time.now.to_i}#{rand(100)}@example.com", :guest=> true)
 		u.save!(:validate => false)
 		session[:guest_user_id] = u.id
 		u

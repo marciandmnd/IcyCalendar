@@ -6,4 +6,9 @@ class CalendarsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get show day" do
+  	get :show_day
+  	assert_response :success
+  end
+
 end

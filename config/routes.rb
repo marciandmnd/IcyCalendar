@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :appointments
 
-  devise_for :users
+  devise_for :users, controllers: {sessions: "sessions"}
   resources :users
   
   get '/demo' => 'calendars#demo', as: :demo

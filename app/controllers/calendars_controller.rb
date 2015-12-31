@@ -21,7 +21,7 @@ class CalendarsController < ApplicationController
 		@num_weeks_in_month = (@num_days_in_month.to_f / 7).ceil
 		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
 
-		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND user_id = ?', @year, @month,session[:guest_user_id])
+		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND user_id = ?', @year, @month, current_or_guest_user.id)
 		@appointments_indices = Hash[(0...@num_days_in_month).map { |num| [num,  0] }]
 
 		@appointments.each do |appointment|
@@ -33,7 +33,7 @@ class CalendarsController < ApplicationController
 	def show_day
 		@day = params[:day]
 		@date = Time.new(@year,@month,@day)
-		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, session[:guest_user_id])
+		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_or_guest_user.id)
 		@appointment = Appointment.new #for new appointment creation
 	end
 
@@ -41,7 +41,6 @@ class CalendarsController < ApplicationController
 		if current_or_guest_user != guest_user
 			create_guest_user #unless session[:guest_user_id]
 		end
-		session[:demo] = true;
 		redirect_to calendar_path(Time.now.year,Time.now.month)
 	end
 

@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def index
-  	@current_month = Time.now.month
-  	@current_year = Time.now.year
+  	if user_signed_in?
+  		redirect_to calendar_path(Time.now.year, Time.now.month)
+  	end
   end
 end
