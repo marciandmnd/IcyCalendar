@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get '/demo' => 'calendars#demo', as: :demo
   get '/calendars/:year/:month/:day' => 'calendars#show_day', as: :show_day
   get '/about' => 'pages#about'
+  get '/settings' => 'pages#settings'
+  get '/help' => 'pages#help'
   get '/calendars/:year/:month' => 'calendars#index', as: :calendar
   root 'pages#index'
 

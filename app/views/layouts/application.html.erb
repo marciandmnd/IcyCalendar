@@ -4,11 +4,12 @@
 	  <title>IcyCalendar</title>
 	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	  <%= stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons' %>
+	  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	  <%= csrf_meta_tags %>
 	</head>
 	
-	<body class='<%= params[:controller] %>'>
+	<body class='<%= params[:controller] %> <%= params[:action] %>'>
 		<%= render "shared/navbar" %>
 		<main>
 			<div class='container'>

@@ -2,22 +2,28 @@
   <nav>
     <div class="nav-wrapper">
       <div class='container'>
-        <%= link_to "Icy Calendar #{ session[:guest_user_id] ? ' - Demo' : nil }", root_path, class: "brand-logo" %>
+        <%= image_tag "logo.png" %>
+        <%= link_to "Icy Calendar #{ session[:guest_user_id] ? ' - Demo' : nil }", root_path, id: "brand-logo", class: "brand-logo" %>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
         <% unless session[:guest_user_id] || user_signed_in? %>
             <li><%= link_to "Demo", demo_path %></li>
         <% end %>
           <% unless user_signed_in? %>
-            <li><%= link_to "Sign In", new_user_session_path %></li>
+            <li><%= link_to new_user_session_path do %><i title="Sign In" class="fa fa-sign-in"></i><% end %></li>
           <% else %>
-            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "/settings" do %><i title="Settings" class="fa fa-cog"></i><% end %>
+            <li><%= link_to destroy_user_session_path, method: :delete do %><i title="Sign Out" class="fa fa-sign-out"></i><% end %></li>
           <% end %>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <% unless user_signed_in? %>
             <li><%= link_to "Demo", demo_path %></li>
             <li><%= link_to "Sign In", new_user_session_path %></li>
+            <% else %>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+
             <% end %>
         </ul>
       </div>

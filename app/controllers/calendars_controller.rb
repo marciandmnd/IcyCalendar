@@ -6,7 +6,8 @@ class CalendarsController < ApplicationController
 		# @year > Time.now.year+100 ? (redirect_to calendar_path(Time.now.year+100, @month)) : nil
 		# @month < 1 ? (redirect_to calendar_path(@year, 1)) : nil
 		# @month > 12 ? (redirect_to calendar_path(@year, 12)) : nil
-
+    
+		# @user = current_or_guest_user
 		@next_month = @month == 12 ? 1 : @month + 1
 		@prev_month =  @month == 1 ? 12 : @month - 1
 

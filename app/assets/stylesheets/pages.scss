@@ -5,12 +5,11 @@
 	text-align: center;
 }
 
-.pages{
+.pages.index{
 	background-image: image-url('landing_page_bg.jpg')
 }
 
-.page-footer{
-  ul li a{
-    color: white;
-  }
+#brand-logo{
+  font-family: 'Lobster', cursive;
+  margin-left:0.3em;
 }
