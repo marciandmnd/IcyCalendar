@@ -10,6 +10,7 @@ gem 'materialize-sass'
 gem 'devise'
 gem 'simple_form'
 gem 'font-awesome-sass', '~> 4.5.0'
+gem 'detect_timezone_rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
