@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
   resources :users
   
-  get '/demo' => 'calendars#demo', as: :demo
   get '/calendars/:year/:month/:day' => 'calendars#show_day', as: :show_day
   get '/about' => 'pages#about'
   get '/settings' => 'pages#settings'

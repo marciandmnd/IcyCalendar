@@ -37,7 +37,7 @@ class CalendarsController < ApplicationController
 
 		@current_month = Time.new(@year, @month,1).to_date
 		@current_date = Time.new
-		
+
 		@current_date.month == @month && @current_date.year == @year ? @today = @current_date.day : nil
 
 		@calendar_cell_index = 0;
@@ -45,7 +45,6 @@ class CalendarsController < ApplicationController
 		@first_weekday_of_month = @current_month.wday 
 		@num_weeks_in_month = (@num_days_in_month.to_f / 7).ceil
 		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
-
 	end
 
 	def show_day
@@ -54,14 +53,7 @@ class CalendarsController < ApplicationController
 		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_or_guest_user.id)
 		@appointment = Appointment.new #for new appointment creation
 	end
-
-	def demo
-		if current_or_guest_user != guest_user
-			create_guest_user #unless session[:guest_user_id]
-		end
-		redirect_to calendar_path(Time.now.year,Time.now.month)
-	end
-
+	
 	private
 
 	def set_year_and_month

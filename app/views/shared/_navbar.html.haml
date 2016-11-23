@@ -1,0 +1,25 @@
+%header
+  %nav
+    .nav-wrapper
+      .container
+        = image_tag "logo.png"
+        = link_to "Icy Calendar", root_path, id: 'brand-logo', class: 'brand-logo'
+        %a.button-collapse{"data-activates" => "mobile-demo", :href => "#"}
+          %i.material-icons menu
+        %ul.right.hide-on-med-and-down
+          - unless user_signed_in?
+            %li
+              = link_to new_user_session_path do
+                %i.fa.fa-sign-in{:title => "Sign In"}
+          - else
+            %li
+              = link_to "/settings" do
+                %i.fa.fa-cog{:title => "Settings"}
+            %li
+              = link_to destroy_user_session_path, method: :delete do
+                %i.fa.fa-sign-out{:title => "Sign Out"}
+        %ul#mobile-demo.side-nav
+          - unless user_signed_in?
+            %li= link_to "Sign In", new_user_session_path
+          - else
+            %li= link_to "Sign Out", destroy_user_session_path, method: :delete
