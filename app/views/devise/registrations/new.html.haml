@@ -1,0 +1,22 @@
+%h3 Sign up
+.row
+  .col.s12.m6
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      .field
+        = f.label :email
+        %br
+        = f.email_field :email, autofocus: true
+      .field
+        = f.label "password#{(' (' + @minimum_password_length.to_s + ' characters_minimum)') if @minimum_password_length}" 
+        %br
+        = f.password_field :password, autocomplete: "off"
+      .field
+        = f.label :password_confirmation
+        %br
+        = f.password_field :password_confirmation, autocomplete: "off"
+      .actions
+        %button.waves-effect.waves-light.btn{:type => "submit"} Sign up
+    = render "devise/shared/links"
+- content_for(:js) do
+  $('#time_zone').set_timezone();
