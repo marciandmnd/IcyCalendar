@@ -1,5 +1,5 @@
 class CalendarsController < ApplicationController
-	before_action :set_year_and_month, only: [:index, :show_day]
+	before_action :set_year_and_month, only: [:index, :show, :show_day]
 	def index
 		#TODO write method to ensure only valid dates are provided in URL
 		# @year < Time.now.year-100 ? (redirect_to calendar_path(Time.now.year-100, @month)) : nil
@@ -11,7 +11,7 @@ class CalendarsController < ApplicationController
 		@next_month = @month == 12 ? 1 : @month + 1
 		@prev_month =  @month == 1 ? 12 : @month - 1
 
-		@current_month = Time.new(@year,@month,1).to_date
+		@current_month = Time.new(@year, @month,1).to_date
 		@current_date = Time.new
 
 		@current_date.month == @month && @current_date.year == @year ? @today = @current_date.day : nil
@@ -28,6 +28,23 @@ class CalendarsController < ApplicationController
 		@appointments.each do |appointment|
 			@appointments_indices[appointment.date.day-1] += 1
 		end
+
+	end
+
+	def show
+		@next_month = @month == 12 ? 1 : @month + 1
+		@prev_month =  @month == 1 ? 12 : @month - 1
+
+		@current_month = Time.new(@year, @month,1).to_date
+		@current_date = Time.new
+		
+		@current_date.month == @month && @current_date.year == @year ? @today = @current_date.day : nil
+
+		@calendar_cell_index = 0;
+		@day_index = 1;
+		@first_weekday_of_month = @current_month.wday 
+		@num_weeks_in_month = (@num_days_in_month.to_f / 7).ceil
+		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
 
 	end
 

@@ -1,0 +1,30 @@
+.show-day
+  %div{:style => "display:flex; align-items: center;"}
+    = link_to url_for(:back), style: "margin-right: 25px;" do
+      = icon('calendar', class: "fa-3x", title: "Back to calendar")
+    %h5
+      Appointments for #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
+    = link_to new_appointment_path(year: @date.year, month: @date.month, day: @date.day), class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;",remote: true do
+      %i.material-icons{:title => "Create new appointment"} add
+  %hr/
+  - if @appointments.empty?
+    %p#appointment-list-message There are no appointments for this date
+  - else
+    %p#appointment-list-message{:style => "display:none;"} There are no appointments for this date
+  %table#appointment-table{:style => "#{@appointments.empty? ? "display:none;" : "display:table;"}"}
+    %thead
+      %tr
+        %th TIME
+        %th DESCRIPTION
+        %th ACTIONS
+    %tbody.tbl-appointments
+      - @appointments.each do |appointment|
+        %tr{"data-appointment-id" => "#{appointment.id}"}
+          %td= appointment.time.strftime("%H:%M")
+          %td= appointment.description
+          %td
+            = link_to edit_appointment_path(appointment), remote: true do
+              = icon('pencil', class: "fa-2x", style: "color:orange")
+            = link_to appointment_path(appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do
+              = icon('times', class: "fa-2x", style: "color:red")
+  #modal-appointment-form.modal{:style => "width:500px"}

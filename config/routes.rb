@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/about' => 'pages#about'
   get '/settings' => 'pages#settings'
   get '/help' => 'pages#help'
-  get '/calendars/:year/:month' => 'calendars#index', as: :calendar
+  get '/calendars/:year/:month' => 'calendars#show', as: :calendar
   root 'pages#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

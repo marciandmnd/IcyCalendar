@@ -1,0 +1,26 @@
+.calendar-heading
+  = link_to "<", calendar_path(@prev_month == 12 ? @current_month.year-1 : @current_month.year, @prev_month), class: 'btn-floating waves-effect waves-light'
+  %h3= Date::MONTHNAMES[@current_month.month].upcase
+  = link_to ">", calendar_path(@next_month == 1 ? @current_month.year+1 : @current_month.year, @next_month), class: 'btn-floating waves-effect waves-light'
+  = link_to "<", calendar_path( @current_month.year-1, @current_month.month), class: 'btn-floating waves-effect waves-light red'
+  %h3= @current_month.year
+  = link_to ">", calendar_path(@current_month.year+1, @current_month.month), class: 'btn-floating waves-effect waves-light red'
+
+%div
+  %table
+    %thead
+      %tr
+        - Date::DAYNAMES.each do |day|
+          %th= day
+    %tbody
+      - while @day_index <= @num_days_in_month do
+        %tr
+          - 7.times do
+            %td{class: "#{'td-other-month' if (@day_index == 1) && (@calendar_cell_index < @first_weekday_of_month) || @day_index > @num_days_in_month}#{ 'td-current-day' if @today == @day_index}"}
+              .calendar-cell-wrapper
+                -if @day_index <= @num_days_in_month &&  @calendar_cell_index >= @first_weekday_of_month
+                  .date-day-number{:style => "display:inline-block;"}
+                    %p
+                      = link_to "#{@day_index}", show_day_path(@current_month.year, @current_month.month, @day_index)
+                  - @day_index+=1
+              - @calendar_cell_index += 1

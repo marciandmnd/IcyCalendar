@@ -13,6 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require materialize-sprockets
-//= require detect_timezone
-//= require jquery.detect_timezone
 //= require_tree .

@@ -1,0 +1,33 @@
+.calendar-heading
+  = link_to "<", calendar_path(@prev_month == 12 ? @current_month.year-1 : @current_month.year, @prev_month), class: 'btn-floating waves-effect waves-light'
+  %h3= Date::MONTHNAMES[@current_month.month].upcase
+  = link_to ">", calendar_path(@next_month == 1 ? @current_month.year+1 : @current_month.year, @next_month), class: 'btn-floating waves-effect waves-light'
+  = link_to "<", calendar_path( @current_month.year-1, @current_month.month), class: 'btn-floating waves-effect waves-light red'
+  %h3= @current_month.year
+  = link_to ">", calendar_path(@current_month.year+1, @current_month.month), class: 'btn-floating waves-effect waves-light red'
+
+%div
+  %table
+    %thead
+      %tr
+        - Date::DAYNAMES.each do |day|
+          %th= day
+    %tbody
+      - while @day_index <= @num_days_in_month do
+        %tr
+          - 7.times do
+            %td{class: "#{@day_index == 1 && @calendar_cell_index < @first_weekday_of_month) || @day_index > @num_days_in_month ? 'td-other-month' : nil } #{'td-current-day' if @today == @day_index}"}
+              .calendar-cell-wrapper
+                .date-day-number{:style => "display:inline-block;"}
+                  %p
+                    %strong
+                      = link_to "#{@day_index}", show_day_path(@current_month.year, @current_month.month, @day_index)
+                - if @appointments_indices[@day_index-1] > 0
+                  .appointment-icon-wrapper{:style => "display:inline-block;margin-left:35%;"}
+                    = link_to show_day_path(@current_month.year, @current_month.month, @day_index) do
+                      %p
+                        = @appointments_indices[@day_index-1]
+                        %i.material-icons schedule
+                  - @day_index+=1
+                - @calendar_cell_index += 1
+              / end calendar cell wrapper
