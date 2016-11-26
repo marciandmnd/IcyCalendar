@@ -1,12 +1,14 @@
-.show-day
-  %div{:style => "display:flex; align-items: center;"}
-    = link_to url_for(:back), style: "margin-right: 25px;" do
-      = icon('calendar', class: "fa-3x", title: "Back to calendar")
-    %h5
-      Appointments for #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
-    = link_to new_appointment_path(year: @date.year, month: @date.month, day: @date.day), class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;",remote: true do
-      %i.material-icons{:title => "Create new appointment"} add
-  %hr/
+.show-day.mt4
+  .row
+    .col.s12
+      %div{:style => "display:flex; align-items: center;"}
+        = link_to url_for(:back), style: "margin-right: 25px;" do
+          = icon('calendar', class: "fa-2x", title: "Back to calendar")
+        %h5
+          Appointments for #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
+        = link_to '#modal-appointment-form', class: "btn-floating btn-medium waves-effect waves-light green modal-trigger", style: "margin-left: 25px;", remote: true do
+          %i.material-icons{:title => "Create new appointment"} add
+    %hr/
   / - if @appointments.empty?
   /   %p#appointment-list-message There are no appointments for this date
   / - else
@@ -14,9 +16,9 @@
   %table#appointment-table{:style => "#{false ? "display:none;" : "display:table;"}"}
     %thead
       %tr
-        %th TIME
-        %th DESCRIPTION
-        %th ACTIONS
+        %th Time
+        %th Description
+        %th Actions
     %tbody.tbl-appointments
       / - @appointments.each do |appointment|
       /   %tr{"data-appointment-id" => "#{appointment.id}"}
@@ -28,3 +30,11 @@
       /       = link_to appointment_path(appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do
       /         = icon('times', class: "fa-2x", style: "color:red")
   #modal-appointment-form.modal{:style => "width:500px"}
+    = render 'appointment_form'
+
+
+:javascript
+   $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('#modal-appointment-form').modal();
+  });
