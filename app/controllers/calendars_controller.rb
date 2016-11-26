@@ -7,7 +7,6 @@ class CalendarsController < ApplicationController
 		# @month < 1 ? (redirect_to calendar_path(@year, 1)) : nil
 		# @month > 12 ? (redirect_to calendar_path(@year, 12)) : nil
     
-		# @user = current_or_guest_user
 		@next_month = @month == 12 ? 1 : @month + 1
 		@prev_month =  @month == 1 ? 12 : @month - 1
 
@@ -50,8 +49,8 @@ class CalendarsController < ApplicationController
 	def show_day
 		@day = params[:day]
 		@date = Time.new(@year,@month,@day)
-		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_or_guest_user.id)
-		@appointment = Appointment.new #for new appointment creation
+		# @appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_or_guest_user.id)
+		# @appointment = Appointment.new #for new appointment creation
 	end
 	
 	private

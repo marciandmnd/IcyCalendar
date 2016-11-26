@@ -1,16 +1,18 @@
 /*
- *= require_tree .
  *= require_self
  */
  
 @import "materialize";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import "calendars";
+@import "pages";
+@import "utilities";
 
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 main {
