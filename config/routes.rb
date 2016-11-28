@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :appointments
 
   devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
-  resources :users
+  resources :users do
+    resources :appointments
+  end
   
   get '/calendars/:year/:month/:day' => 'calendars#show_day', as: :show_day
   get '/about' => 'pages#about'

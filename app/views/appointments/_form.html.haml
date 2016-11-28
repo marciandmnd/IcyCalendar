@@ -1,0 +1,6 @@
+= simple_form_for [@user, @appointment] do |f|
+  = f.hidden_field :date, value: @date ? @date.to_s : @appointment.date
+  = f.label 'time'
+  = f.time_select :time
+  = f.input :description
+  = f.button :submit, id: 'btn-submit-new-appointment', class: "waves-effect waves-light btn"

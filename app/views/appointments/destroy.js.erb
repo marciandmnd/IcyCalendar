@@ -1,5 +1,6 @@
 $('[data-appointment-id="<%= @destroyed_record_id %>"]').remove();
+
 if($("#appointment-table > tbody > tr").length == 0){
 	$('#appointment-table').css("display", "none")
 	$('#appointment-list-message').css("display", "block")
-} 
+}

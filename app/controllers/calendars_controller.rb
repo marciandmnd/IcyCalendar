@@ -49,7 +49,10 @@ class CalendarsController < ApplicationController
 	def show_day
 		@day = params[:day]
 		@date = Time.new(@year,@month,@day)
-		# @appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_or_guest_user.id)
+		@user = current_user
+		@appointment = Appointment.new
+
+		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_user.id)
 		# @appointment = Appointment.new #for new appointment creation
 	end
 	

@@ -1,20 +1,17 @@
 class AppointmentsController < ApplicationController
+
   def new
     @appointment = Appointment.new
-    @date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-    respond_to do |format|
-      format.js
-    end
+    @user = current_user
   end
-
+  
   def create
-  	@appointment = Appointment.new(appointment_params)
-  	@appointment.user_id = current_or_guest_user.id
-  	respond_to do |format|
+  	@appointment = current_user.appointments.build(appointment_params)
+    respond_to do |format|
 	  	if @appointment.save
-	  		format.js
+  		  format.js {render layout: false}
 	  	else
-			format.js {render :partial=> 'appointments/invalid.js'}
+		    format.js {render :partial=> 'appointments/invalid.js'}
 	  	end
   	end
   end
@@ -39,7 +36,6 @@ class AppointmentsController < ApplicationController
 
 
   def destroy
-
   	@appointment = Appointment.find(params[:id])
   	respond_to do |format|
 	  	if @destroyed_record_id = @appointment.destroy.id
