@@ -3,17 +3,17 @@ class AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
     @user = current_user
+    @day = params[:day]
+    @year = params[:year].to_i
+    @month = params[:month].to_i
+    @date = Time.new(@year,@month,@day)
+
   end
-  
+
   def create
   	@appointment = current_user.appointments.build(appointment_params)
-    respond_to do |format|
-	  	if @appointment.save
-  		  format.js {render layout: false}
-	  	else
-		    format.js {render :partial=> 'appointments/invalid.js'}
-	  	end
-  	end
+    @appointment.save
+    redirect_to show_day_path(@appointment.time.year, @appointment.time.month, @appointment.time.day)
   end
 
   def edit
