@@ -52,7 +52,7 @@ class CalendarsController < ApplicationController
 		@user = current_user
 		@appointment = Appointment.new
 
-		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND extract(day from date) = ? AND user_id = ?', @year, @month, @day, current_user.id)
+		@appointments = Appointment.where('extract(year from date_from) = ? AND extract(month from date_from) = ? AND extract(day from date_from) = ? AND user_id = ?', @year, @month, @day, current_user.id)
 		# @appointment = Appointment.new #for new appointment creation
 	end
 	

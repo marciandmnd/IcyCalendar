@@ -7,6 +7,14 @@
     = stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons'
     %link{:href => "https://fonts.googleapis.com/css?family=Lobster", :rel => "stylesheet", :type => "text/css"}/
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+    / jquery ui core
+    /= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+    /= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+
+    /= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css"
+    /= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"
+
     = csrf_meta_tags
   %body{:class => "#{params[:controller]} #{params[:action]}"}
     = render "shared/navbar"

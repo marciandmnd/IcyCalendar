@@ -5,7 +5,7 @@
         = link_to url_for(:back), style: "margin-right: 25px;" do
           = icon('calendar', class: "fa-2x", title: "Back to calendar")
         %h5
-          Appointments for #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
+          #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
         = link_to new_appointment_path(day: @day, month: @month, year: @year), class: "btn-floating btn-medium waves-effect waves-light green", style: "margin-left: 25px;" do 
           %i.material-icons{:title => "Create new appointment"} add
     %hr
@@ -19,10 +19,10 @@
       %tbody
         - @appointments.each do |appointment|
           %tr{"data-appointment-id" => "#{appointment.id}"}
-            %td= appointment.time.strftime("%H:%M")
+            %td= appointment.date_from.strftime("%H:%M")
             %td= appointment.description
             %td
-              = link_to edit_appointment_path(appointment), remote: true do
+              = link_to edit_appointment_path(appointment, {day: @day, month: @month, year: @year}) do
                 = icon('pencil', class: "fa-2x", style: "color:orange")
               = link_to appointment_path(appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do
                 = icon('times', class: "fa-2x", style: "color:red")
