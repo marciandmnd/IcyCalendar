@@ -26,11 +26,9 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment = Appointment.find(params[:id])
-    byebug
     @appointment.update(appointment_params)
     redirect_to show_day_path(@appointment.date_from.year, @appointment.date_from.month, @appointment.date_from.day)
   end
-
 
   def destroy
   	@appointment = Appointment.find(params[:id])

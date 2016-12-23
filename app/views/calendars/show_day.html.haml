@@ -2,7 +2,7 @@
   .row
     .col.s12
       %div{:style => "display:flex; align-items: center;"}
-        = link_to url_for(:back), style: "margin-right: 25px;" do
+        = link_to calendar_path(@year, @month), style: "margin-right: 25px;" do
           = icon('calendar', class: "fa-2x", title: "Back to calendar")
         %h5
           #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
