@@ -22,6 +22,3 @@
                   = link_to "#{@day_index}", show_day_path(@current_month.year, @current_month.month, @day_index)
                 - @day_index+=1
               - @calendar_cell_index += 1
-
-:javascript
-  $('#calendar').icify();
