@@ -1,12 +1,6 @@
 class CalendarsController < ApplicationController
 	before_action :set_year_and_month, only: [:index, :show, :show_day]
 	def index
-		#TODO write method to ensure only valid dates are provided in URL
-		# @year < Time.now.year-100 ? (redirect_to calendar_path(Time.now.year-100, @month)) : nil
-		# @year > Time.now.year+100 ? (redirect_to calendar_path(Time.now.year+100, @month)) : nil
-		# @month < 1 ? (redirect_to calendar_path(@year, 1)) : nil
-		# @month > 12 ? (redirect_to calendar_path(@year, 12)) : nil
-    
 		@next_month = @month == 12 ? 1 : @month + 1
 		@prev_month =  @month == 1 ? 12 : @month - 1
 
