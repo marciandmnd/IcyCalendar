@@ -17,7 +17,6 @@ class CalendarsController < ApplicationController
 
 		@appointments = Appointment.where('extract(year from date_from) = ? AND extract(month from date_from) = ? AND user_id = ?', @year, @month, current_user.id)
 		@appts = @appointments.map {|a| [a.date_from.day, a] }.to_h
-		byebug
 	end
 
 	def show_day
