@@ -16,9 +16,11 @@
       - while @day_index <= @num_days_in_month do
         %tr
           - 7.times do
-            %td.relative{class: "#{'td-other-month' if (@day_index == 1) && (@calendar_cell_index < @first_weekday_of_month) || @day_index > @num_days_in_month}#{ 'td-current-day' if @today == @day_index}", data: {'day-index': "#{@day_index}"}}
+            %td.relative.center{class: "#{'td-other-month' if (@day_index == 1) && (@calendar_cell_index < @first_weekday_of_month) || @day_index > @num_days_in_month}#{ 'td-current-day' if @today == @day_index}", data: {'day-index': "#{@day_index}"}}
               -if @day_index <= @num_days_in_month &&  @calendar_cell_index >= @first_weekday_of_month
                 .date-day-number.absolute.top-0.left-0
                   = link_to "#{@day_index}", show_day_path(@current_month.year, @current_month.month, @day_index)
+                - if @appts[@day_index] 
+                  %i.fa.fa-clock-o.fa-2x
                 - @day_index+=1
               - @calendar_cell_index += 1

@@ -13,6 +13,7 @@ class AppointmentsController < ApplicationController
   def create
   	@appointment = current_user.appointments.build(appointment_params)
     @appointment.save
+
     redirect_to show_day_path(@appointment.date_from.year, @appointment.date_from.month, @appointment.date_from.day)
   end
 

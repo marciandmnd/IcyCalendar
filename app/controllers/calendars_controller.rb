@@ -15,7 +15,9 @@ class CalendarsController < ApplicationController
 		@num_weeks_in_month = (@num_days_in_month.to_f / 7).ceil
 		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
 
-		@appointments = Appointment.where('extract(year from date) = ? AND extract(month from date) = ? AND user_id = ?', @year, @month, current_user.id)
+		@appointments = Appointment.where('extract(year from date_from) = ? AND extract(month from date_from) = ? AND user_id = ?', @year, @month, current_user.id)
+		@appts = @appointments.map {|a| [a.date_from.day, a] }.to_h
+		byebug
 	end
 
 	def show_day
