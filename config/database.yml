@@ -82,4 +82,6 @@ production:
   <<: *default
   database: icy-calendar_production
   username: icy-calendar
-  password: <%= ENV['DATABASE_URL'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
+  
