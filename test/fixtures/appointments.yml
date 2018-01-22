@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date_time: 2015-12-02 15:34:29
-  description: MyText
+# one:
+#   date_time: 2015-12-02 15:34:29
+#   description: MyText
 
-two:
-  date_time: 2015-12-02 15:34:29
-  description: MyText
+# two:
+#   date_time: 2015-12-02 15:34:29
+#   description: MyText

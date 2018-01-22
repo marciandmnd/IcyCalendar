@@ -19,8 +19,7 @@
   %body{:class => "#{params[:controller]} #{params[:action]}"}
     = render "shared/navbar"
     %main
-      .container
-        = yield
+      = yield
     = javascript_tag do
       $(document).ready(function(){
       \#{yield(:js)}

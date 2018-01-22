@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 ruby "2.3.0"
 
-gem 'rails', '5.0.0'
-gem 'pg'
+gem 'rails', '5.1.0'
+gem 'pg', '~> 0.20'
 gem 'sass-rails', '~> 5.0'
 gem 'materialize-sass'
 gem 'devise'
