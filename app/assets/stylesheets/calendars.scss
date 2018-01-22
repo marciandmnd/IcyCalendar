@@ -12,35 +12,36 @@
 		display: inline;	
 	}
 }
-
-td{
-	width: 14.28%;
-	padding: 40px 8px;
-	border: 1px solid #eee;
-	cursor: pointer;
-	transition: background-color 0.2s ease-in;
-	&:hover{
-		background-color: lightblue;
-	} 
-	vertical-align: top;
-}
-
-.td-current-day{
-	background-color: #F9BF3B;
-	&:hover{
-		background-color:orange!important;
+#calendar {
+	td{
+		width: 14.28%;
+		padding: 40px 8px;
+		border: 1px solid #eee;
+		cursor: pointer;
+		transition: background-color 0.2s ease-in;
+		&:hover{
+			background-color: lightblue;
+		} 
+		vertical-align: top;
 	}
-}
 
-.td-other-month{
-	background-color: #ECECEC;
-}
+	.td-current-day{
+		background-color: #F9BF3B;
+		&:hover{
+			background-color:orange!important;
+		}
+	}
 
-.date-day-number {
-	padding: 2px;
-	border-bottom: 1px solid #eee;
-	border-right: 1px solid #eee;
-	a {
-		color: #888;
+	.td-other-month{
+		background-color: #ECECEC;
+	}
+
+	.date-day-number {
+		padding: 2px;
+		border-bottom: 1px solid #eee;
+		border-right: 1px solid #eee;
+		a {
+			color: #888;
+		}
 	}
 }

@@ -17,8 +17,8 @@
           %th Description
           %th Actions
       %tbody
-        - @appointments.each do |appointment|
-          %tr{"data-appointment-id" => "#{appointment.id}"}
+        - @appointments.each_with_index do |appointment, i|
+          %tr{"data-appointment-id" => "#{appointment.id}", class: "#{i.even? ? 'even' : 'odd'}"}
             %td= appointment.date_from.strftime("%H:%M")
             %td= appointment.description
             %td
