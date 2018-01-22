@@ -12,6 +12,12 @@
 		display: inline;	
 	}
 }
+
+.cell-appt {
+	height: 4.17%;
+	background: rgb(0, 196, 231); 
+}
+
 #calendar {
 	td{
 		width: 14.28%;
@@ -37,6 +43,10 @@
 	}
 
 	.date-day-number {
+		border-bottom-right-radius: 4px;
+		min-width: 24px;
+		z-index: 10;
+		background-color: #eee;
 		padding: 2px;
 		border-bottom: 1px solid #eee;
 		border-right: 1px solid #eee;

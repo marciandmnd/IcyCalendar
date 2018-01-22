@@ -14,9 +14,16 @@ class CalendarsController < ApplicationController
 		@first_weekday_of_month = @current_month.wday 
 		@num_weeks_in_month = (@num_days_in_month.to_f / 7).ceil
 		@num_days_in_month = Time::days_in_month(@current_month.month, @current_month.year)
-
+@before_action
 		@appointments = Appointment.where('extract(year from date_from) = ? AND extract(month from date_from) = ? AND user_id = ?', @year, @month, current_user.id)
-		@appts = @appointments.map {|a| [a.date_from.day, a] }.to_h
+		@appts = {}
+		@appointments.each do |a|
+			if @appts[a.date_from.day]
+				@appts[a.date_from.day].push a
+			else
+				@appts[a.date_from.day] = [a]
+			end
+		end
 	end
 
 	def show_day
