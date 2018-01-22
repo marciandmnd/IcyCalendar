@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   end
 
   def settings
-    @user = current_or_guest_user
+    @user = current_user
   end
 
   def help
