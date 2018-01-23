@@ -1,21 +1,23 @@
 .container
-  %h3 Sign in
   .row
-    .col.s12.m6
+    .col.s12.m6.offset-m3
+      %h3 Sign In
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        = devise_error_messages!
-        .field
+        - flash.each do |key, value|
+          %div{class:"#{flash_class(key)}"}
+            = value
+        .input-field
           = f.label :email
-          %br/
           = f.email_field :email, autofocus: true
-        .field
+          %small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+        .input-field
           = f.label :password
-          %br/
           = f.password_field :password, autocomplete: "off"
         - if devise_mapping.rememberable?
-          .field
-            = f.check_box :remember_me
-            = f.label :remember_me
-        .actions
-          %button.waves-effect.waves-light.btn{:type => "submit"} Sign in
+          .form-check
+            %label.form-check-label
+              = f.check_box :remember_me, class: 'form-check-input'
+              Remember me
+        %button.btn.btn-info{:type => "submit"} Submit
       = render "devise/shared/links"
+        

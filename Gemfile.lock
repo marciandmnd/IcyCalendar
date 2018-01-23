@@ -39,6 +39,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
+    autoprefixer-rails (7.2.5)
+      execjs
     bcrypt (3.1.11)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
@@ -77,8 +79,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    materialize-sass (0.100.2)
-      sass (~> 3.3)
+    materialize-sass (1.0.0.alpha3)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.5.2)
     method_source (0.9.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
@@ -174,7 +177,7 @@ DEPENDENCIES
   haml
   jbuilder (~> 2.0)
   jquery-rails
-  materialize-sass
+  materialize-sass (~> 1.0.0.alpha3)
   pg (~> 0.20)
   rails (= 5.1.0)
   sass-rails (~> 5.0)

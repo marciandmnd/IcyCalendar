@@ -1,5 +1,5 @@
 .show-day.container
-  .row
+  .row.mt2
     .col.s12
       %div{:style => "display:flex; align-items: center;"}
         = link_to calendar_path(@year, @month), style: "margin-right: 25px;" do
@@ -8,7 +8,6 @@
           #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
         = link_to new_appointment_path(day: @day, month: @month, year: @year), class: "btn-floating btn-medium waves-effect waves-light green", style: "margin-left: 25px;" do 
           %i.material-icons{:title => "Create new appointment"} add
-    %hr
     %p#appointment-list-message{style: "#{'display:none' if !@appointments.empty?}"} There are no appointments for this date
     %table#appointment-table{:style => "#{'display:none' if @appointments.empty?}"}
       %thead

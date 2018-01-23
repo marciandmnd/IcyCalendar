@@ -1,14 +1,12 @@
-/*
- *= require_self
- */
- 
-@import "materialize";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "calendars";
 @import "pages";
 @import "utilities";
 @import "show_day";
+@import "materialize";
+
+$red: #f44336;
 
 body {
   display: flex;
@@ -22,4 +20,8 @@ main {
 
 select{
 	display: inline!important;
+}
+
+nav {
+  background-color: $red;
 }

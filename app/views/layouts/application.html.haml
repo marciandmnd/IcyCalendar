@@ -3,17 +3,10 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title IcyCalendar
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'application', media: 'all'
     = stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons'
     %link{:href => "https://fonts.googleapis.com/css?family=Lobster", :rel => "stylesheet", :type => "text/css"}/
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-
-    / jquery ui core
-    /= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
-    /= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-
-    /= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css"
-    /= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"
+    = javascript_include_tag 'application'
 
     = csrf_meta_tags
   %body{:class => "#{params[:controller]} #{params[:action]}"}
@@ -22,5 +15,6 @@
       = yield
     = javascript_tag do
       $(document).ready(function(){
-      \#{yield(:js)}
+      $('.sidenav').sidenav();
       });
+

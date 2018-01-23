@@ -1,8 +1,15 @@
-.row
-  .col.m6.offset-m3
-    .card.blue.lighten-5
-      .card-content.black-text.center
-        %span.card-title.black-text Organize... Icy style!
-        %p Interactive persistent calendar.
-      .card-action.center
-        = link_to "Sign in", new_user_session_path, class:"waves-effect waves-light btn-large"
+.container
+  .row
+    .col.s12
+      .card.grey.lighten-4
+        .card-content.red-text
+          %h1 Welcome to IcyCalendar!
+          %h3.black-text
+            Fresh 'n clean appointment organization to fulfill all of your scheduling needs.
+          %h2
+            Organize Icy Style!
+        .card-action
+          = link_to new_user_registration_path, class: 'waves-effect waves-light btn-large' do
+            Get started
+            %i.material-icons.right
+              exit_to_app

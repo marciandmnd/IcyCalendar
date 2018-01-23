@@ -1,24 +1,45 @@
-%header.mb4
-  %nav
-    .nav-wrapper.px1
-      = image_tag "logo.png"
-      = link_to "Icy Calendar", root_path, id: 'brand-logo', class: 'brand-logo'
-      %a.button-collapse{"data-activates" => "mobile-demo", :href => "#"}
-        %i.material-icons menu
-      %ul.right.hide-on-med-and-down
-        - unless user_signed_in?
-          %li
-            = link_to new_user_session_path do
-              %i.fa.fa-2x.fa-sign-in{:title => "Sign In"}
-        - else
-          %li
-            = link_to "/settings" do
-              %i.fa.fa-2x.fa-cog{:title => "Settings"}
-          %li
-            = link_to destroy_user_session_path, method: :delete do
-              %i.fa.fa-2x.fa-sign-out{:title => "Sign Out"}
-      %ul#mobile-demo.side-nav
-        - unless user_signed_in?
-          %li= link_to "Sign In", new_user_session_path
-        - else
-          %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+%nav
+  .nav-wrapper
+    = link_to root_path, id: 'brand-logo', class: 'brand-logo' do
+      %div.flex
+        = image_tag "logo.png", class: 'px1'
+        IcyCalendar
+    %a.sidenav-trigger{"data-target" => "mobile-demo", :href => "#"}
+      %i.material-icons menu
+    %ul.right.hide-on-med-and-down
+      - unless user_signed_in?
+        %li
+          = link_to new_user_session_path do
+            .flex
+              %i.fa.fa-sign-in.px1{:title => "Sign In"}
+              Sign In
+      - else
+        %li
+          = link_to "/settings" do
+            .flex
+              %i.fa.fa-cog.px1{:title => "Settings"}
+              Settings
+        %li
+          = link_to destroy_user_session_path, method: :delete do
+            .flex
+              %i.fa.fa-sign-out.px1{:title => "Sign Out"}
+              Sign Out
+    %ul#mobile-demo.sidenav
+      - unless user_signed_in?
+        %li.px1
+          = link_to new_user_session_path do
+            %i.fa.fa-sign-in{:title => "Sign In"}
+            Sign In
+      - else
+        %li.px1
+          = link_to "/settings" do
+            %i.fa.fa-cog{:title => "Settings"}
+            Settings
+        %li.px1
+          = link_to destroy_user_session_path, method: :delete do
+            %i.fa.fa-sign-out{:title => "Sign Out"}
+            Sign out
+            
+            
+
+       
