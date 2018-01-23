@@ -25,3 +25,10 @@ select{
 nav {
   background-color: $red;
 }
+
+
+@media screen and (max-width: 460px) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.5rem; }
+  h3 { font-size: 2rem; }
+}
