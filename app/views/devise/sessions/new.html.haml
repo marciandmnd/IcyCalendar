@@ -14,10 +14,10 @@
           = f.label :password
           = f.password_field :password, autocomplete: "off"
         - if devise_mapping.rememberable?
-          .form-check
-            %label.form-check-label
+          .mb2
+            %label 
               = f.check_box :remember_me, class: 'form-check-input'
-              Remember me
+              %span Remember me
         %button.btn.btn-info{:type => "submit"} Submit
       = render "devise/shared/links"
         
