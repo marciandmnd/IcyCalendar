@@ -2,8 +2,6 @@
 	> * {
 		margin-right:10px;
 	}
-	display: flex;
-	align-items: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width:100%;
@@ -13,6 +11,7 @@
 	}
 }
 
+#view-select { width: 75px; }
 .calendar-wrapper {
 	position: absolute;
 	top: 164px;

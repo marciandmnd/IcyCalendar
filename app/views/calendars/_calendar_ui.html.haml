@@ -1,0 +1,10 @@
+.calendar-heading.flex.space-between.items-center.px1
+  = render 'calendar_navigation'
+    
+.calendar-wrapper
+  = render 'calendar'
+    
+:javascript
+  $(document).ready(function(){
+    IcyCalendar.init(#{params[:year]}, #{params[:month]});
+  });

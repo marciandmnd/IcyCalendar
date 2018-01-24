@@ -1,0 +1,22 @@
+#calendar.fill-y.px1
+  %table.fill-y
+    %thead
+      %tr
+        - Date::DAYNAMES.each do |day|
+          %th= day
+    %tbody
+      - @week_index = 0
+      - while @day_index <= @num_days_in_month do
+        %tr.week{data: {'week-index': @week_index }}
+          - 7.times do
+            %td.relative.center{class: "#{'td-other-month' if (@cell_index < @first_weekday_of_month) || @day_index > @num_days_in_month}#{ 'td-current-day' if @today == @day_index}", data: {"show-path": "/calendars/#{@year}/#{@month}/#{@day_index}", 'cell-index': @cell_index, 'day-index': @cell_index < @first_weekday_of_month ? '-1' : @day_index}}
+              .day-wrapper.absolute
+              -if @day_index <= @num_days_in_month &&  @cell_index >= @first_weekday_of_month
+                .date-day-number.absolute.top-0.left-0
+                  = link_to "#{@day_index}", show_day_path(@current_month.year, @current_month.month, @day_index)
+                - if @appts[@day_index]
+                  - @appts[@day_index].each do |a|
+                    .cell-appt.absolute.left-0.right-0{style: "top: #{(a.date_from.hour.to_f * 4.17).to_s + '%'}"}
+                - @day_index+=1
+              - @cell_index += 1
+          - @week_index += 1

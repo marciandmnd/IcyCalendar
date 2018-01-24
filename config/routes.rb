@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   
   get '/calendars/:year/:month/:day' => 'calendars#show_day', as: :show_day
+  get '/async_calendar/:year/:month' => 'calendars#async_calendar'
   get '/about' => 'pages#about'
   get '/settings' => 'pages#settings'
   get '/help' => 'pages#help'
