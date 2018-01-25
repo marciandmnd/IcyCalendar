@@ -1,12 +1,27 @@
 .calendar-navigation.flex.items-center
-  .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'prev'}} <
-  %h4#month-name.m0.px1= Date::MONTHNAMES[@current_month.month].upcase
-  .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'next'}} >
-  = link_to "<", calendar_path( @current_month.year-1, @current_month.month), id: 'prev-year-link', class: 'btn-floating waves-effect waves-light red'
-  %h4#year.m0.px1= @current_month.year
-  = link_to ">", calendar_path(@current_month.year+1, @current_month.month), id: 'next-year-link', class: 'btn-floating waves-effect waves-light red'
+  .flex.items-center.px1
+    .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'prev'}}
+      %i.nav-el.material-icons keyboard_arrow_left
+    /%h4#month-name.m0.px1= Date::MONTHNAMES[@current_month.month].upcase
+    .input-field.px1{style: 'width: 128px;'}
+      %select#month-select
+        = Date::MONTHNAMES[1..-1].each_with_index do |m, i|
+          %option{value: i + 1}= m
+    .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'next'}}
+      %i.material-icons keyboard_arrow_right
+  
+  .flex.items-center.px1
+    .nav-el-year.btn.btn-floating.waves-effect.waves-light.red{data: {dir: 'prev'}}
+      %i.material-icons keyboard_arrow_left
+    .input-field.px1{style: 'width: 80px;'}
+      %select#year-select
+        = ((@year-10)..(@year+10)).each do |y|
+          %option{value: y, id: "y#{y}"}= y
+      
+    
+    = link_to ">", calendar_path(@current_month.year+1, @current_month.month), id: 'next-year-link', class: 'btn-floating waves-effect waves-light red'
 
-.input-field
+.input-field.px1{style: 'width: 88px;'}
   %select#view-select
     %option{:value => "month"} Month
     %option{:value => "week"} Week

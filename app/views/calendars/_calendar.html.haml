@@ -1,8 +1,14 @@
+#time.absolute.top-0.bottom-0.px1
+  %div GMT
+  - 12.times do |i|
+    %div{class: (i+1)%2 !=0 ? 'odd' : 'even'}= "#{i+1}am"
+  - 11.times do |i|
+    %div{class: (i+1)%2 !=0 ? 'odd' : 'even'}= "#{i+1}pm"
 #calendar.fill-y.px1
   %table.fill-y
     %thead
       %tr
-        - Date::DAYNAMES.each do |day|
+        - I18n.t('date.abbr_day_names').each do |day|
           %th= day
     %tbody
       - @week_index = 0

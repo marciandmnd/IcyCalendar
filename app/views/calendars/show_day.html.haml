@@ -2,8 +2,8 @@
   .row.mt2
     .col.s12
       %div{:style => "display:flex; align-items: center;"}
-        = link_to calendar_path(@year, @month), style: "margin-right: 25px;" do
-          = icon('calendar', class: "fa-2x", title: "Back to calendar")
+        = link_to calendar_path(@year, @month), style: "margin-right: 25px;", class: "btn btn-floating", title: 'Back to calendar' do
+          %i.material-icons keyboard_arrow_left
         %h5
           #{@date.strftime("%A, %B #{@date.day.ordinalize} %Y")}
         = link_to new_appointment_path(day: @day, month: @month, year: @year), class: "btn-floating btn-medium waves-effect waves-light green", style: "margin-left: 25px;" do 
@@ -22,6 +22,6 @@
             %td= appointment.description
             %td
               = link_to edit_appointment_path(appointment, {day: @day, month: @month, year: @year}) do
-                = icon('pencil', class: "fa-2x", style: "color:orange")
+                %i.material-icons.orange-text{:title => "Edit"} mode_edit
               = link_to appointment_path(appointment), method: :delete, remote: true, data: {confirm: "Delete appointment?"} do
-                = icon('times', class: "fa-2x", style: "color:red")
+                %i.material-icons.red-text{:title => "Delete"} delete_forever

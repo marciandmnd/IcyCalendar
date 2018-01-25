@@ -56,8 +56,6 @@ GEM
     erubi (1.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
-    font-awesome-sass (4.5.0)
-      sass (>= 3.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -171,7 +169,6 @@ PLATFORMS
 DEPENDENCIES
   byebug
   devise
-  font-awesome-sass (~> 4.5.0)
   haml
   jbuilder (~> 2.0)
   jquery-rails

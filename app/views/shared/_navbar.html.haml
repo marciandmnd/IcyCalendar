@@ -8,36 +8,34 @@
       %i.material-icons menu
     %ul.right.hide-on-med-and-down
       - unless user_signed_in?
-        %li
+        %li{title: "Sign In"}
           = link_to new_user_session_path do
             .flex
-              %i.fa.fa-sign-in.px1{:title => "Sign In"}
+              %i.px1.material-icons exit_to_app
               Sign In
       - else
-        %li
+        %li{title: "Settings"}
           = link_to "/settings" do
             .flex
-              %i.fa.fa-cog.px1{:title => "Settings"}
+              %i.px1.material-icons settings
               Settings
-        %li
+        %li{title: "Sign Out"}
           = link_to destroy_user_session_path, method: :delete do
             .flex
-              %i.fa.fa-sign-out.px1{:title => "Sign Out"}
               Sign Out
     %ul#mobile-demo.sidenav
       - unless user_signed_in?
         %li.px1
           = link_to new_user_session_path do
-            %i.fa.fa-sign-in{:title => "Sign In"}
+            %i.px1.material-icons exit_to_app
             Sign In
       - else
         %li.px1
           = link_to "/settings" do
-            %i.fa.fa-cog{:title => "Settings"}
+            %i.px1.material-icons settings
             Settings
         %li.px1
           = link_to destroy_user_session_path, method: :delete do
-            %i.fa.fa-sign-out{:title => "Sign Out"}
             Sign out
             
             

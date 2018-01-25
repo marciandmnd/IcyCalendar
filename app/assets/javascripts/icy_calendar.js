@@ -24,8 +24,10 @@ var IcyCalendar = {
       $weekRows: $('table tr.week'),
       static: {
         $calendarWrapper: $('.calendar-wrapper'),
-        $viewSelect: $('#view-select')
-      }
+        $viewSelect: $('#view-select'),
+        $monthSelect: $('#month-select'),
+        $yearSelect: $('#year-select')
+      },
     };
 
     // History API popstate handling
@@ -33,7 +35,7 @@ var IcyCalendar = {
       console.log(e.state);
       switch(e.state.view) {
         case 'mo':
-          if(e.state.month != _this.ctx.month) {
+          if(e.state.month != _this.ctx.month || e.state.year != _this.ctx.year) {
             var cacheKey = 'y' + e.state.year + 'm' + e.state.month;
             _this.ctx.static.$calendarWrapper.html(_this.cache[cacheKey]);
             _this.update(e.state.year, e.state.month);
@@ -58,6 +60,7 @@ var IcyCalendar = {
       alert('test');
     });
 
+    //*** BEGIN Navigate by week or month (TODO: day)
     $('.nav-el').on('click', function(e) {
       var month = _this.ctx.month;
       var year = _this.ctx.year;
@@ -177,36 +180,51 @@ var IcyCalendar = {
           break
       }
     });
-
-    //*** BEGIN calendar navigation event handlers ***//
-    $('a#next-week').on('click', function(e) {
-      e.preventDefault();
-      
-      var currWeekIndex = $($('tr.week:visible')[0]).data('week-index');
-      var nextWeekIndex = currWeekIndex + 1;
-
-      _this.ctx.$weekRows.hide();
-      $(_this.ctx.$weekRows[nextWeekIndex]).show();
-
-      history.pushState({view: 'wk', row: nextWeekIndex, month: _this.ctx.month, year: _this.ctx.year }, null, null);
+    //*** END Navigate by week or month (TODO: day)
+    
+    //*** BEGIN Navigate by year (TODO: day)
+    $('.nav-el-year').on('click', function() {
+      var dir = $(this).data('dir');
+      if(dir === 'prev') {
+        _this.loadCalendar(_this.ctx.year + 1, _this.ctx.month);
+      }
     });
-
+    
     $('td').on('click', function(){
       window.location = $(this).data('show-path');
     });
     //*** END calendar navigation event handlers ***//
 
-    // M select box
+    // M month select box
+    document.getElementById("month-select").selectedIndex = _this.ctx.month - 1;
+    _this.ctx.static.$monthSelect.select();
+    _this.ctx.static.$monthSelect.on('change', function(e) {
+      var month = _this.ctx.static.$monthSelect.val();
+      _this.loadCalendar(_this.ctx.year, month);
+    });
+
+    // M year select box
+    document.getElementById("year-select").selectedIndex = $($('#y' + _this.ctx.year)).prevAll().length;
+    _this.ctx.static.$yearSelect.select();
+    _this.ctx.static.$yearSelect.on('change', function(e) {
+      var year = _this.ctx.static.$yearSelect.val();
+      history.pushState({view: _this.view, month: _this.ctx.month, year: year}, null, '/calendars/' + year + "/" + _this.ctx.month);
+      _this.loadCalendar(year, _this.ctx.month);
+    });
+    // M view select box
+    document.getElementById("view-select").selectedIndex = 0;
     _this.ctx.static.$viewSelect.select();
     _this.ctx.static.$viewSelect.on('change', function(e){
       var value = _this.ctx.static.$viewSelect.val();
       switch(value) {
         case 'month':
+          if(_this.view === 'mo') break;
           _this.view = 'mo';
           _this.showCalendarNavigation();
           history.pushState({view: 'mo', month: _this.ctx.month, year: _this.ctx.year }, null, null);
           break;
         case 'week':
+          if(_this.view === 'wk') break;
           _this.view = 'wk';
           _this.showWeekNavigation();
           history.pushState({view: 'wk', row: 0, month: _this.ctx.month, year: _this.ctx.year }, null, null);
@@ -218,7 +236,6 @@ var IcyCalendar = {
       }
     });
 
-    // Cache initial calendar
     const cacheKey = 'y' + _this.ctx.year + 'm' + _this.ctx.month
     _this.cache[cacheKey] = _this.ctx.static.$calendarWrapper.html();
   },
@@ -226,6 +243,12 @@ var IcyCalendar = {
   update: function(year, month) {
     this.refreshCtx(year, month);
     
+    document.getElementById("month-select").selectedIndex = month - 1;
+    this.ctx.static.$monthSelect.select();
+
+    document.getElementById("year-select").selectedIndex = $($('#y' + this.ctx.year)).prevAll().length;
+    this.ctx.static.$yearSelect.select();
+
     $('#month-name').text(monthNames[month-1]);
     $('#year').text(year);
 
@@ -235,11 +258,45 @@ var IcyCalendar = {
   showCalendarNavigation: function() {
     this.setViewSelect(0);
     this.ctx.$weekRows.show();
+    
+    $('#time').removeClass('open');
+    setTimeout(function() {
+      $('#time').css('top', '0px');
+    }, 750);
+    setTimeout(function() {
+      $('#calendar').removeClass('time-open')
+    }, 200);
+    
   },
   showWeekNavigation: function(weekIndex=0) {
     this.setViewSelect(1);
     this.ctx.$weekRows.hide()
     $(this.ctx.$weekRows[weekIndex]).show();
+    
+    setTimeout(function(){
+      // $('#time').slideToggle();
+      
+      var tdOffset = $('td:first:visible').offset().top;
+      var timeOffset = $('#time').offset().top;
+      var offset = tdOffset - timeOffset;
+      console.log('td offset', tdOffset);
+      console.log('time offset', timeOffset);
+      console.log('offset', offset);
+      $('#time').css('top', offset);
+      $('#calendar').addClass('time-open');
+      $('#time').addClass('open');
+      
+    }, 100)
+    // Position time timeline properly
+    // $('#time').slideToggle();
+
+    // var tdOffset = $('td:first:visible').offset().top;
+    // var timeOffset = $('#time').offset().top;
+    // var offset = tdOffset - timeOffset;
+    
+    // console.log(offset);
+    // $('#time').css('top', offset);
+    // $('#calendar').addClass('time-open')
   },
   // reset M select box
   setViewSelect: function(i) { 
@@ -251,7 +308,7 @@ var IcyCalendar = {
     const cacheKey = 'y' + year + 'm' + month;
     
     $.ajax({
-      url:  "/async_calendar/" + _this.ctx.year + "/" + _this.ctx.month,
+      url:  "/async_calendar/" + year + "/" + month,
       success: function(data) {
         _this.ctx.static.$calendarWrapper.html(data);
         
@@ -261,7 +318,6 @@ var IcyCalendar = {
         
         _this.update(year, month);
         
-        history.pushState({view: _this.ctx.view, month: month, year: year}, null, '/calendars/' + year + "/" + month);
         cb();
       },
       dataType: 'html'

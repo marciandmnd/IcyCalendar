@@ -11,7 +11,26 @@
 	}
 }
 
+#time {
+	transform: translateX(-100%);
+	transition: transform 0.75s ease;
+}
+
+#time.open {
+	transform: translateX(0%);
+}
+
+#time div {
+	height: 4.17%;
+	font-size: 12px;
+}
+
+@media screen and (max-height: 700px) {
+  #time div.odd { visibility: hidden; }
+}
+
 #view-select { width: 75px; }
+
 .calendar-wrapper {
 	position: absolute;
 	top: 164px;
@@ -26,6 +45,11 @@
 }
 
 #calendar {
+	transition: margin-left 0.25s ease;
+	&.time-open {
+		margin-left: 50px;
+	}
+	thead tr { height: 40px; }
 	td{
 		width: 14.28%;
 		padding: 40px 8px;
