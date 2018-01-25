@@ -1,7 +1,7 @@
 .calendar-navigation.flex.items-center
   .flex.items-center.px1
-    .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'prev'}}
-      %i.nav-el.material-icons keyboard_arrow_left
+    %a.nav-el.btn.btn-floating{data: {dir: 'prev'}}
+      %i.material-icons keyboard_arrow_left
     /%h4#month-name.m0.px1= Date::MONTHNAMES[@current_month.month].upcase
     .input-field.px1{style: 'width: 128px;'}
       %select#month-select
@@ -17,9 +17,8 @@
       %select#year-select
         = ((@year-10)..(@year+10)).each do |y|
           %option{value: y, id: "y#{y}"}= y
-      
-    
-    = link_to ">", calendar_path(@current_month.year+1, @current_month.month), id: 'next-year-link', class: 'btn-floating waves-effect waves-light red'
+    .nav-el-year.btn.btn-floating.waves-effect.waves-light.red{data: {dir: 'next'}}
+      %i.material-icons keyboard_arrow_right
 
 .input-field.px1{style: 'width: 88px;'}
   %select#view-select
