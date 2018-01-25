@@ -1,15 +1,11 @@
 .calendar-navigation.flex.items-center
-  = link_to "<", calendar_path(@prev_month == 12 ? @current_month.year-1 : @current_month.year, @prev_month), id: 'prev-month-link', class: 'btn-floating waves-effect waves-light'
+  .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'prev'}} <
   %h4#month-name.m0.px1= Date::MONTHNAMES[@current_month.month].upcase
-  = link_to ">", calendar_path(@next_month == 1 ? @current_month.year+1 : @current_month.year, @next_month), id: 'next-month-link', class: 'mx1 btn-floating waves-effect waves-light'
+  .nav-el.btn.btn-floating.waves-effect.waves-light{data: {dir: 'next'}} >
   = link_to "<", calendar_path( @current_month.year-1, @current_month.month), id: 'prev-year-link', class: 'btn-floating waves-effect waves-light red'
   %h4#year.m0.px1= @current_month.year
   = link_to ">", calendar_path(@current_month.year+1, @current_month.month), id: 'next-year-link', class: 'btn-floating waves-effect waves-light red'
 
-.week-navigation{style: 'display: none;'}
-  %a#prev-week.btn-floating.waves-effect.waves-light.red <
-  %a#next-week.btn-floating.waves-effect.waves-light.red >
-  
 .input-field
   %select#view-select
     %option{:value => "month"} Month

@@ -2,8 +2,6 @@ class CalendarsController < ApplicationController
 	before_action :set_year_and_month, only: [:show, :async_calendar, :show_day]
 
 	def show
-		@next_month = @month == 12 ? 1 : @month + 1
-		@prev_month =  @month == 1 ? 12 : @month - 1
 		set_instance_variables
 	end
 
